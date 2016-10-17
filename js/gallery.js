@@ -3,7 +3,7 @@ $(".start").click(function(event) {
     var mainImg = $(event.target);
     var parentGallery = mainImg.parent();
     var currentGallery, currentTrumbs, quantityPhotos, galleryImg, largeImage, largeImageHeight,nextGallery;
-    var numberGallery = mainImg.attr("src").replace('images/big/', '').replace('/ (1).jpg', '');
+    var numberGallery = mainImg.attr("src").replace('images/big/', '').replace('/(1).jpg', '');
     var topCurrentGallery = $(window).scrollTop() + ($(window).height() * 0.075);
 
     renderGallery(numberGallery);
@@ -78,12 +78,12 @@ $(".start").click(function(event) {
         }
 
         for (var i = quantityPhotos; i > 0; i--) {
-            currentTrumbs.append("<img src=\"images/thumbs/" + numberGallery + "/ (" + i + ").jpg\"/>");
+            currentTrumbs.append("<img src=\"images/thumbs/" + numberGallery + "/(" + i + ").jpg\"/>");
         }
     }
 
     function renderGalleryContainer(currentGallery, numberGallery) {
-        currentGallery.append("<div class=\"container\"><div class=\"col-md-11 col-xs-11 col-sm-11\"><div class=\"col-md-10 col-sm-12 col-xs-12\"><img class=\"largeImage\" src=\"images/big/" + numberGallery + "/ (1).jpg\" /></div><div class=\"thumbs col-md-2 col-sm-12 col-xs-12\"></div></div><div class=\"col-md-1 col-xs-1 col-sm-1\"><p class=\"close-gallery\">X</p></div></div>");
+        currentGallery.append("<div class=\"container\"><div class=\"col-md-11 col-xs-11 col-sm-11\"><div class=\"col-md-10 col-sm-12 col-xs-12\"><img class=\"largeImage\" src=\"images/big/" + numberGallery + "/(1).jpg\" /></div><div class=\"thumbs col-md-2 col-sm-12 col-xs-12\"></div></div><div class=\"col-md-1 col-xs-1 col-sm-1\"><p class=\"close-gallery\">X</p></div></div>");
     }
 
     function createPreveousStrilka(currentGallery) {
