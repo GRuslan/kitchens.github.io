@@ -2777,8 +2777,18 @@ article > div {
 }
 
 .largeImage {
-    padding-left: 9px;
-    width: 100%;
+    display: block;
+    max-width: 100%;
+    margin: auto;
+    position: relative;
+}
+
+.gallery .col-md-11 .col-md-10 {
+    background-color: white;
+}
+
+.gallery .col-md-11 {
+    padding-left: 30px;
 }
 
 .gallery .thumbs {
@@ -2854,6 +2864,7 @@ img.start {
     -o-transform: rotate(180deg); /* Для Opera */
     transform: rotate(180deg)
 }
+
 
 @media(max-width: 970px) {
     .gallery .thumbs {

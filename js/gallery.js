@@ -2,9 +2,10 @@ $(".start").click(function(event) {
     var maxGallery = 4;
     var mainImg = $(event.target);
     var parentGallery = mainImg.parent();
-    var currentGallery, currentTrumbs, quantityPhotos, galleryImg, largeImage, largeImageHeight,nextGallery;
+    var currentGallery, currentTrumbs, quantityPhotos, galleryImg, largeImage, largeImageHeight,nextGallery, preveousGallery;
     var numberGallery = mainImg.attr("src").replace('images/big/', '').replace('/(1).jpg', '');
-    var topCurrentGallery = $(window).scrollTop() + ($(window).height() * 0.075);
+    var windowHeight = $(window).height();
+    var topCurrentGallery = $(window).scrollTop() + (windowHeight * 0.075);
 
     renderGallery(numberGallery);
 
@@ -29,11 +30,32 @@ $(".start").click(function(event) {
         fillSmallImages(currentGallery, false);
 
         nextGallery = $("#nextGallery");
+
+        addEventsImages();
+
+   /*     setTimeout(createLinksGallery, 100);
+        setTimeout(eventListen,300);*/
+    }
+
+    function addEventsImages() {
         largeImage = $('.largeImage');
-        largeImageHeight = largeImage.height();
-        
-        setTimeout(createLinksGallery, 200);
-        setTimeout(eventListen,300);
+        largeImage.css({"max-height": (windowHeight * 0.8)});
+        var timer =  0;
+
+        var timerId = setTimeout(function tick() {
+          if(+largeImage.width() > 0) {
+             createLinksGallery();
+             eventListen();
+          }
+
+          else if(timer > 2000) {
+            alert("ne robit");
+          }
+          else {
+             timer += 10;
+             timerId = setTimeout(tick, 10);
+          }
+        }, 10);
     }
 
     function createLinksGallery() {
@@ -41,13 +63,23 @@ $(".start").click(function(event) {
         /*logic created links next or preveous*/
 
         nextGallery = $("#nextGallery");
+        preveousGallery = $("#preveousGallery");
+        largeImage = $('.largeImage');
         largeImageHeight = $('.largeImage').height();
+
+        if(largeImage.width() > largeImage.height()){
+            largeImage.css({"width": "100%"});
+        } 
+
+        else {
+            largeImage.css({"height": "100%"});
+        } 
 
         if (nextGallery.length && numberGallery < maxGallery) {
             return null;
         } else if ((+numberGallery == maxGallery) && (nextGallery.length)) {
             nextGallery.remove();
-        } else if (+numberGallery == maxGallery) {
+        } else if (+numberGallery == maxGallery && (preveousGallery.length)) {
             createPreveousStrilka(currentGallery);
         } else if (+numberGallery == 1) {
             createNextLink(currentGallery);
@@ -102,8 +134,7 @@ $(".start").click(function(event) {
             $(".gallery .container").remove();
             renderGalleryContainer(currentGallery, numberGallery);
             fillSmallImages(currentGallery, false,true);
-            createLinksGallery();
-            eventListen();
+            addEventsImages();
 
         });
 
@@ -114,7 +145,7 @@ $(".start").click(function(event) {
             renderGalleryContainer(currentGallery, numberGallery);
             fillSmallImages(currentGallery, true ,false);
             createLinksGallery();
-            eventListen();
+            addEventsImages();
 
         });
 
